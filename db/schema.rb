@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_020326) do
+ActiveRecord::Schema.define(version: 2022_01_10_225117) do
 
   create_table "resumes", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_01_10_020326) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["zip"], name: "index_resumes_on_zip"
   end
 
 end
