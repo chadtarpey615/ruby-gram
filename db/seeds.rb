@@ -5,9 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-
-if Resume.count == 0
-    Resume.create(name: 'Dan Bunker', phone: '555-555-5555')
-    Resume.create(name: 'John Doe', phone: '555-555-5555', city: 'Some City')
-end

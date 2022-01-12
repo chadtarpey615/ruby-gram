@@ -1,2 +1,0 @@
-class ViewHistory < ApplicationRecord
-end
