@@ -20,49 +20,46 @@ class UserTest < ActiveSupport::TestCase
 
  end
 
-  test "name can not be to long" do
-    @user.name = "a" * 61
-    assert_not @user.valid?
-  end
-
-  test "email can not be to long" do 
+    test "email cannot be too long" do
     @user.email = "a" * 255 + "@example.com"
     assert_not @user.valid?
   end
 
-  test "email validation should accept valid addresses" do 
-    valid_addresses = %w[tony@example.com john@test.com mary@new.com tony.smith@example.com tony+smith@example.com]
-     valid_addresses.each do |valid_address|
+  test "email validation should accept valid addresses" do
+    valid_addresses = %w[tony@example.com JOHN@test.com MARY_smith-01@new.com tony.smith@example.com tony+smith@example.com]
+    valid_addresses.each do |valid_address|
       @user.email = valid_address
       assert @user.valid?, "#{valid_address.inspect} should be valid"
-     end
-     end
+    end
+  end
 
-       test "email validation should not accept invalid email addresses" do 
-        invalid_addresses = %w[test_at_test.com mary@new tony.smith.examplecom tony+smith+example.com]
-        invalid_addresses.each do |invalid_address|
-        @user.email = invalid_address
-        assert @user.valid?, "#{invalid_address.inspect} should be invalid"
-     end
-     end
+  test "email validation should not accept invalid email addresses" do
+    invalid_addresses = %w[test@example,com test_at_example.com test@example. test@ex+ample.com]
+    invalid_addresses.each do |invalid_address|
+      @user.email = invalid_address
+      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
+    end
+  end
 
-     test "email address should be unique" do 
-      duplicate_user = @user.dup
-      @user.save
-      assert_not duplicate_user.valid?
-     end
+  test "email address should be unique" do
+    duplicate_user = @user.dup
+    @user.save
+    assert_not duplicate_user.valid?
+  end
 
-     test "password should be present (cannot be blank)" do 
-      @user.password = @user.password_confirmation = " " * 6
-      assert_not @user.valid?
-     end
+  test "password should be present (cannot be blank)" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
 
-     test "should have a minimum length" do 
-      @user.password = @user.password_confirmation = "p" * 5
-      assert_not @user.valid?
-     end
+  test "should have a minimum length" do
+    @user.password = @user.password_confirmation = "p" * 5
+    assert_not @user.valid?
+  end
+
 
   end
+
 
 
 
