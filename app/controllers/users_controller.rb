@@ -8,6 +8,7 @@ before_action :admin_user,  only: :destroy
 
   def show 
     @user = User.find(params[:id])
+    @snapshots = @user.snapshots.paginate(page: params[:page])
   end
 
   def new 

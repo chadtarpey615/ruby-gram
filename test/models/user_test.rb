@@ -57,6 +57,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "associated snapshots should be destroyed" do
+    @user.save
+    @user.snapshots.create!(content: "Great job!")
+    assert_difference 'Snapshot.count', -1 do
+      @user.destroy
+    end
+  end
+
 
   end
 
